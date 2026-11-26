@@ -6,15 +6,28 @@ The Dot is the HID itself: the ESP32-P4's full-speed USB OTG enumerates as a boo
 
 Payloads are plain text files on the Dot's microSD card. Edit them in a browser over Wi-Fi with a live error check, on the Dot's glass, or in any text editor.
 
+## In the simulator
+
+The app running in the kode-sim emulator (its host build). The built-in DuckyScript payload `ducky-run-powershell` plays `GUI r`, then types `powershell`, then ENTER into the simulated PC — OS-command injection running end to end, not a BIOS key tap.
+
+<table>
+<tr>
+<td align="center"><img src="docs/sim-home.png" width="200"><br><sub>BIOS profiles + a DuckyScript payload</sub></td>
+<td align="center"><img src="docs/sim-ducky.png" width="200"><br><sub>DuckyScript payload selected</sub></td>
+<td align="center"><img src="docs/sim-running.png" width="200"><br><sub>Running — step 5 of 6</sub></td>
+<td align="center"><img src="docs/sim-done.png" width="200"><br><sub>Done — ran 1 time</sub></td>
+</tr>
+</table>
+
+### How it fits together
+
 ![From a payload to keystrokes](docs/pipeline.svg)
 
 ![Arm, wait, run](docs/arming.svg)
 
-> The two diagrams above are the design, not device screenshots — the app has not yet run on a real Dot (see [What is tested](#what-is-tested)).
-
 > **Authorised use only.** This is an offensive-security tool. Use it on machines you own or are explicitly contracted to test. HID keystroke injection is a crime against systems you have no permission to touch. No telemetry, no detection evasion, no persistence is built in, and none will be accepted.
 
-> **Not tested on a real Kode Dot.** Built with ESP-IDF v6.1 and kode-sdk v0.1.1. The DuckyScript and profile engines pass host tests (under ASan and UBSan); the on-device app has run only in the kode-sim emulator in its BIOS-helper form. See [What is tested](#what-is-tested).
+> **Not tested on real hardware.** Built with ESP-IDF v6.1 and kode-sdk v0.1.1. The DuckyScript and profile engines pass host tests (under ASan and UBSan), and the app boots and runs a DuckyScript payload to completion in the kode-sim emulator (above). It has not run on a real Kode Dot or the ESP32-P4 instruction emulator. See [What is tested](#what-is-tested).
 
 Dot BadUSB is an independent app. Kode did not make it and does not endorse it. It began as a fork of Dot BIOS Helper.
 
@@ -93,9 +106,9 @@ The web editor is at `http://<dot>` when the Dot is on Wi-Fi. It has **no login*
 | DuckyScript translator and the whole pipeline — translate → parse → player → a fake PC types the right bytes (`test/ducky_test.c`, 12 tests) | Host, under ASan and UBSan |
 | Profile language: parser, player, arming, batch, keypad, variables, loops (`test/script_test.c`, 16 tests) | Host, under ASan and UBSan |
 | Build for the ESP32-P4 with ESP-IDF v6.1 | Inherited from Dot BIOS Helper |
-| kode-sim end to end in the BIOS-helper form | Inherited |
+| kode-sim (host build): boots, lists profiles and the DuckyScript payload, runs `ducky-run-powershell` to completion (screenshots above) | Done for this app |
 
-**Not yet tested:** the DuckyScript load path on a real Dot or in the emulator (the three `sc_parse` call sites now route through `ducky_parse`, reviewed but not run on device); real OS payloads against a real PC; the USB-C PHY swap on a board.
+**Not yet tested:** the app on a real Kode Dot or in the ESP32-P4 instruction emulator (`esp-emu`, a full kodeOS flash image); real OS payloads against a real PC; the USB-C PHY swap on a board. In the kode-sim host build there is no USB, so `hidkb_sim.c` models an always-attached PC that accepts every keystroke; the real HID path (`hidkb.c`, TinyUSB) is unexercised.
 
 ## Building
 
@@ -112,7 +125,7 @@ Host tests:
 ```bash
 cd test
 cc -std=c11 -Wall -Wextra -I../main ducky_test.c ../main/ducky.c ../main/script.c ../main/keys.c -o ducky_test && ./ducky_test
-cc -std=c11 -Wall -Wextra -I../main script_test.c ../main/script.c ../main/keys.c ../main/builtin.c -o script_test && ./script_test
+cc -std=c11 -Wall -Wextra -I../main script_test.c ../main/script.c ../main/keys.c ../main/ducky.c ../main/builtin.c -o script_test && ./script_test
 ```
 
 ## Installing

@@ -195,7 +195,7 @@ static void toast(gfx_surf_t *s, const ui_model_t *m, int y)
 
 static void draw_list(gfx_surf_t *s, const ui_model_t *m)
 {
-    header(s, m, "BIOS Helper");
+    header(s, m, "Dot BadUSB");
     char b[64];
     if ( m->toast[0] )
     {
@@ -521,7 +521,7 @@ static void draw_settings(gfx_surf_t *s, const ui_model_t *m)
             break;
         default:
             k = "About";
-            (void)snprintf(v, sizeof(v), "Dot BIOS Helper %s, GPL-3.0", m->version ? m->version : "");
+            (void)snprintf(v, sizeof(v), "Dot BadUSB %s, GPL-3.0", m->version ? m->version : "");
             vc = FAINT;
             break;
         }

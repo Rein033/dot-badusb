@@ -933,7 +933,12 @@ void App_start(void)
     s_cmdq = xQueueCreate(8, sizeof(app_cmd_t));
     s_snap_mx = xSemaphoreCreateMutex();
     s_help = xQueueCreate(8, sizeof(help_t));
+#if defined(CONFIG_IDF_TARGET_LINUX) || CONFIG_FREERTOS_UNICORE
+    /* the sim is single-core: no affinity instead of APP_CPU */
+    xTaskCreatePinnedToCore(helper_task, "bh_help", 6144, NULL, 2, NULL, tskNO_AFFINITY);
+#else
     xTaskCreatePinnedToCore(helper_task, "bh_help", 6144, NULL, 2, NULL, 1);
+#endif
     QActive_setAttr(AO_App, TASK_NAME_ATTR, "bh_app");
     QACTIVE_START(AO_App, KODE_PRIO_USER_GUI, l_queue, Q_DIM(l_queue), s_stack, sizeof(s_stack), (void *)0);
 }
@@ -973,7 +978,7 @@ static QState App_initial(App * const me, void const * const par)
     QActive_subscribe(&me->super, WIFI_STATE_SIG);
     display_state_request();
     wifi_state_request();
-    KLOG_I(TAG, "Dot BIOS Helper %s: %d profiles, keyboard %s", APP_VERSION, me->m.count,
+    KLOG_I(TAG, "Dot BadUSB %s: %d profiles, keyboard %s", APP_VERSION, me->m.count,
            me->m.kb_ok ? "up" : "DOWN");
     QTimeEvt_armX(&me->tick, KQP_TICKS_PER_MS(TICK_MS), KQP_TICKS_PER_MS(TICK_MS));
     return Q_TRAN(&App_running);

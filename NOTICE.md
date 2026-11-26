@@ -1,6 +1,6 @@
 # Licences
 
-Dot BIOS Helper is free software: GPL-3.0-or-later (`LICENSE`). It links kode-sdk, which is GPL-3.0-or-later; the ESP-IDF component manager downloads it at build time, and its own `NOTICE.md` lists the licences of its parts.
+Dot BadUSB is free software: GPL-3.0-or-later (`LICENSE`). It links kode-sdk, which is GPL-3.0-or-later; the ESP-IDF component manager downloads it at build time, and its own `NOTICE.md` lists the licences of its parts.
 
 - TinyUSB (downloaded at build time): MIT.
 - `main/fonts_aa.c`: Outfit, SIL Open Font License 1.1 (`tools/fonts/OFL-Outfit.txt`), rasterised by `tools/mkfont_ttf.py`.

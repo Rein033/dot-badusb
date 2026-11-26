@@ -49,6 +49,15 @@ static const builtin_t B[] = {
       "arm plug\n"
       "spam F9 15\n"
       "beep\n" },
+    { "ducky-run-powershell",
+      "REM DuckyScript: open Run and launch PowerShell (US layout).\n"
+      "REM OS-command injection, not a BIOS key tap. Runs on a PC that holds the keyboard.\n"
+      "DEFAULTDELAY 50\n"
+      "DELAY 800\n"
+      "GUI r\n"
+      "DELAY 400\n"
+      "STRING powershell\n"
+      "ENTER\n" },
     { "batch-f12",
       "title Batch: F12 on every PC\n"
       "desc Plug into one PC after another: each gets F12 as it boots\n"

@@ -53,7 +53,7 @@ static const uint8_t s_cfg[] = {
     TUD_HID_DESCRIPTOR(ITF_KB, 4, HID_ITF_PROTOCOL_KEYBOARD, sizeof(s_report), EP_KB_IN, 8, 10),
 };
 
-static const char *const s_str[] = { "", "Dot BIOS Helper", "Dot BIOS Helper Keyboard", "DBH0001", "Keyboard" };
+static const char *const s_str[] = { "", "Dot BadUSB", "Dot BadUSB Keyboard", "DBU0001", "Keyboard" };
 
 uint8_t const *tud_descriptor_device_cb(void)
 {

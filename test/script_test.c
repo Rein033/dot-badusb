@@ -2,13 +2,14 @@
 /**
  * Host test of the profile language: the parser and the player against a fake PC.
  *
- *   cc -std=c11 -Wall -Wextra -Werror -I../main script_test.c ../main/script.c ../main/keys.c ../main/builtin.c && ./a.out
+ *   cc -std=c11 -Wall -Wextra -Werror -I../main script_test.c ../main/script.c ../main/keys.c ../main/ducky.c ../main/builtin.c && ./a.out
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "builtin.h"
+#include "ducky.h"
 #include "script.h"
 
 static int fails;
@@ -136,15 +137,21 @@ static void t_parse_errors(void)
 
 static void t_builtins_parse(void)
 {
+    /* Built-ins load the same way the app loads them: ducky_parse auto-detects
+       DuckyScript (which has no title line) and leaves the profile language as-is. */
+    static char scratch[4096];
     for ( int i = 0; i < builtin_count(); ++i )
     {
-        int e = sc_parse(&prog, builtin_text(i));
+        int e = ducky_parse(&prog, builtin_text(i), scratch, sizeof scratch, NULL);
         if ( e )
         {
             printf("  builtin %s: line %d %s\n", builtin_name(i), prog.err[0].line, prog.err[0].msg);
         }
         CHECK(0 == e);
-        CHECK(prog.title[0]);
+        if ( !ducky_detect(builtin_text(i)) )
+        {
+            CHECK(prog.title[0]); /* a profile built-in names itself with title */
+        }
     }
 }
 

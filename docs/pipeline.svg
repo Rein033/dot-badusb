@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="300" rx="14" fill="#15171c"/>
+  <text x="28" y="40" fill="#e8eaed" font-size="19" font-weight="700">From a payload to keystrokes</text>
+  <text x="28" y="62" fill="#9aa0a6" font-size="13">The card file stays in whatever language you wrote. Translation happens only on load.</text>
+
+  <!-- card file -->
+  <rect x="28" y="92" width="150" height="70" rx="10" fill="#1f2228" stroke="#3a3f47"/>
+  <text x="103" y="120" fill="#e8eaed" font-size="13" font-weight="600" text-anchor="middle">.txt on microSD</text>
+  <text x="103" y="140" fill="#9aa0a6" font-size="12" text-anchor="middle">DuckyScript</text>
+  <text x="103" y="156" fill="#9aa0a6" font-size="12" text-anchor="middle">or profile</text>
+
+  <!-- ducky_parse detect -->
+  <rect x="222" y="92" width="150" height="70" rx="10" fill="#1f2228" stroke="#3a3f47"/>
+  <text x="297" y="118" fill="#e8eaed" font-size="13" font-weight="600" text-anchor="middle">ducky_parse</text>
+  <text x="297" y="138" fill="#9aa0a6" font-size="12" text-anchor="middle">detect the</text>
+  <text x="297" y="154" fill="#9aa0a6" font-size="12" text-anchor="middle">language</text>
+
+  <!-- translate (ducky only) -->
+  <rect x="222" y="196" width="150" height="62" rx="10" fill="#241a1e" stroke="#FF2D55"/>
+  <text x="297" y="222" fill="#ff6a8a" font-size="13" font-weight="600" text-anchor="middle">ducky_to_profile</text>
+  <text x="297" y="242" fill="#9aa0a6" font-size="12" text-anchor="middle">DuckyScript only</text>
+
+  <!-- sc_parse -->
+  <rect x="416" y="92" width="130" height="70" rx="10" fill="#1f2228" stroke="#3a3f47"/>
+  <text x="481" y="124" fill="#e8eaed" font-size="13" font-weight="600" text-anchor="middle">sc_parse</text>
+  <text x="481" y="144" fill="#9aa0a6" font-size="12" text-anchor="middle">+ check</text>
+
+  <!-- player -->
+  <rect x="590" y="92" width="120" height="70" rx="10" fill="#1f2228" stroke="#3a3f47"/>
+  <text x="650" y="124" fill="#e8eaed" font-size="13" font-weight="600" text-anchor="middle">sc_player</text>
+  <text x="650" y="144" fill="#9aa0a6" font-size="12" text-anchor="middle">timing</text>
+
+  <!-- hid + pc -->
+  <rect x="754" y="92" width="82" height="70" rx="10" fill="#241a1e" stroke="#FF2D55"/>
+  <text x="795" y="120" fill="#ff6a8a" font-size="13" font-weight="600" text-anchor="middle">hidkb</text>
+  <text x="795" y="140" fill="#9aa0a6" font-size="12" text-anchor="middle">USB</text>
+  <text x="795" y="156" fill="#9aa0a6" font-size="12" text-anchor="middle">to PC</text>
+
+  <!-- arrows -->
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#a)">
+    <line x1="178" y1="127" x2="218" y2="127"/>
+    <line x1="372" y1="127" x2="412" y2="127"/>
+    <line x1="546" y1="127" x2="586" y2="127"/>
+    <line x1="710" y1="127" x2="750" y2="127"/>
+  </g>
+  <!-- detect down to translate, back up to sc_parse -->
+  <g stroke="#FF2D55" stroke-width="2" fill="none" marker-end="url(#a)">
+    <path d="M297,162 L297,192"/>
+    <path d="M372,227 C410,227 400,127 412,127"/>
+  </g>
+  <text x="312" y="182" fill="#ff6a8a" font-size="11">if DuckyScript</text>
+</svg>

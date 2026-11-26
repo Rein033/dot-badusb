@@ -6,6 +6,12 @@ The Dot is the HID itself: the ESP32-P4's full-speed USB OTG enumerates as a boo
 
 Payloads are plain text files on the Dot's microSD card. Edit them in a browser over Wi-Fi with a live error check, on the Dot's glass, or in any text editor.
 
+![From a payload to keystrokes](docs/pipeline.svg)
+
+![Arm, wait, run](docs/arming.svg)
+
+> The two diagrams above are the design, not device screenshots — the app has not yet run on a real Dot (see [What is tested](#what-is-tested)).
+
 > **Authorised use only.** This is an offensive-security tool. Use it on machines you own or are explicitly contracted to test. HID keystroke injection is a crime against systems you have no permission to touch. No telemetry, no detection evasion, no persistence is built in, and none will be accepted.
 
 > **Not tested on a real Kode Dot.** Built with ESP-IDF v6.1 and kode-sdk v0.1.1. The DuckyScript and profile engines pass host tests (under ASan and UBSan); the on-device app has run only in the kode-sim emulator in its BIOS-helper form. See [What is tested](#what-is-tested).
